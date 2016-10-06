@@ -51,8 +51,8 @@ public class AEXibceptionView: UIView {
     
     /// View outlet that should be connected from the File's owner in storyboard.
     @IBOutlet public lazy var contentView: UIView! = {
-        let className = NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last
-        return NSBundle.mainBundle().loadNibNamed(className, owner: self, options: nil).first as! UIView
+        let className = NSStringFromClass(type(of: self)).components(separatedBy: ".").last
+        return Bundle.main.loadNibNamed(className!, owner: self, options: nil)!.first as! UIView
     }()
     
     // MARK: - Lifecycle
@@ -66,7 +66,7 @@ public class AEXibceptionView: UIView {
     */
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         addSubview(contentView)
     }
 

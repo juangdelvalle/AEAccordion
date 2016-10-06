@@ -48,9 +48,9 @@ public class AEAccordionTableViewController: UITableViewController {
     */
     public func toggleCell(cell: AEAccordionTableViewCell, animated: Bool) {
         if !cell.expanded {
-            expandCell(cell, animated: animated)
+            expandCell(cell: cell, animated: animated)
         } else {
-            collapseCell(cell, animated: animated)
+            collapseCell(cell: cell, animated: animated)
         }
     }
     
@@ -65,45 +65,45 @@ public class AEAccordionTableViewController: UITableViewController {
         :param: cell A table-view cell object that tableView is going to use when drawing the row.
         :param: indexPath An index path locating the row in tableView.
     */
-    public override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? AEAccordionTableViewCell {
-            let expanded = expandedIndexPaths.contains(indexPath)
-            cell.setExpanded(expanded, animated: false)
+            let expanded = expandedIndexPaths.contains(indexPath as NSIndexPath)
+            cell.setExpanded(expanded: expanded, animated: false)
         }
     }
     
     /**
         `AEAccordionTableViewController` will animate cell to be expanded or collapsed.
-        
+     
         Tells the delegate that the specified row is now deselected.
         
         :param: tableView A table-view object informing the delegate about the row deselection.
         :param: indexPath An index path locating the deselected row in tableView.
     */
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? AEAccordionTableViewCell {
-            toggleCell(cell, animated: true)
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? AEAccordionTableViewCell {
+            toggleCell(cell: cell, animated: true)
         }
     }
     
     // MARK: - Helpers
     
     private func expandCell(cell: AEAccordionTableViewCell, animated: Bool) {
-        if let indexPath = tableView.indexPathForCell(cell) {
+        if let indexPath = tableView.indexPath(for: cell) {
             if !animated {
-                cell.setExpanded(true, animated: false)
-                addToExpandedIndexPaths(indexPath)
+                cell.setExpanded(expanded: true, animated: false)
+                addToExpandedIndexPaths(indexPath: indexPath as NSIndexPath)
             } else {
                 CATransaction.begin()
                 
                 CATransaction.setCompletionBlock({ () -> Void in
                     // 2. animate views after expanding
-                    cell.setExpanded(true, animated: true)
+                    cell.setExpanded(expanded: true, animated: true)
                 })
                 
                 // 1. expand cell height
                 tableView.beginUpdates()
-                addToExpandedIndexPaths(indexPath)
+                addToExpandedIndexPaths(indexPath: indexPath as NSIndexPath)
                 tableView.endUpdates()
                 
                 CATransaction.commit()
@@ -112,22 +112,22 @@ public class AEAccordionTableViewController: UITableViewController {
     }
     
     private func collapseCell(cell: AEAccordionTableViewCell, animated: Bool) {
-        if let indexPath = tableView.indexPathForCell(cell) {
+        if let indexPath = tableView.indexPath(for: cell) {
             if !animated {
-                cell.setExpanded(false, animated: false)
-                removeFromExpandedIndexPaths(indexPath)
+                cell.setExpanded(expanded: false, animated: false)
+                removeFromExpandedIndexPaths(indexPath: indexPath as NSIndexPath)
             } else {
                 CATransaction.begin()
                 
                 CATransaction.setCompletionBlock({ () -> Void in
                     // 2. collapse cell height
                     self.tableView.beginUpdates()
-                    self.removeFromExpandedIndexPaths(indexPath)
+                    self.removeFromExpandedIndexPaths(indexPath: indexPath as NSIndexPath)
                     self.tableView.endUpdates()
                 })
                 
                 // 1. animate views before collapsing
-                cell.setExpanded(false, animated: true)
+                cell.setExpanded(expanded: false, animated: true)
                 
                 CATransaction.commit()
             }
@@ -139,8 +139,8 @@ public class AEAccordionTableViewController: UITableViewController {
     }
     
     private func removeFromExpandedIndexPaths(indexPath: NSIndexPath) {
-        if let index = self.expandedIndexPaths.indexOf(indexPath) {
-            self.expandedIndexPaths.removeAtIndex(index)
+        if let index = self.expandedIndexPaths.index(of: indexPath) {
+            self.expandedIndexPaths.remove(at: index)
         }
     }
 
