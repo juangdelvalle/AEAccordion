@@ -32,7 +32,7 @@ import UIKit
     You can also override `setExpanded:withCompletion:` in order to animate this UI update.
 */
 
-public class AEAccordionTableViewCell: UITableViewCell {
+open class AEAccordionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     

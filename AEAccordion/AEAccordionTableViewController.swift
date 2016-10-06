@@ -31,7 +31,7 @@ import UIKit
     (based on information in `expandedIndexPaths` property).
 */
 
-public class AEAccordionTableViewController: UITableViewController {
+open class AEAccordionTableViewController: UITableViewController {
     
     // MARK: - Properties
     
