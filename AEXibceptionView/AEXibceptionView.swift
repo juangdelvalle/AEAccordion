@@ -45,7 +45,7 @@ import UIKit
     - Add views to CustomCell.xib and set their class to `FirstView` and `SecondView`
 */
 
-public class AEXibceptionView: UIView {
+open class AEXibceptionView: UIView {
     
     // MARK: - Properties
     
