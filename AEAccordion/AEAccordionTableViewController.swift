@@ -65,7 +65,7 @@ open class AEAccordionTableViewController: UITableViewController {
         :param: cell A table-view cell object that tableView is going to use when drawing the row.
         :param: indexPath An index path locating the row in tableView.
     */
-    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? AEAccordionTableViewCell {
             let expanded = expandedIndexPaths.contains(indexPath as NSIndexPath)
             cell.setExpanded(expanded: expanded, animated: false)
@@ -80,7 +80,7 @@ open class AEAccordionTableViewController: UITableViewController {
         :param: tableView A table-view object informing the delegate about the row deselection.
         :param: indexPath An index path locating the deselected row in tableView.
     */
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? AEAccordionTableViewCell {
             toggleCell(cell: cell, animated: true)
         }

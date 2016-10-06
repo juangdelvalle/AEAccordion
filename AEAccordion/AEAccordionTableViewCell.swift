@@ -47,7 +47,7 @@ open class AEAccordionTableViewCell: UITableViewCell {
         :param: expanded `true` if the cell should be expanded, `false` if it should be collapsed.
         :param: animated If `true` action should be animated.
     */
-    public func setExpanded(expanded: Bool, animated: Bool) {
+    open func setExpanded(expanded: Bool, animated: Bool) {
         self.expanded = expanded
     }
 
